@@ -13,6 +13,8 @@ public class ServerThread extends Thread {
 		try {
 			ObjectInputStream ois = 
 				new ObjectInputStream(socket.getInputStream());
+			ObjectOutputStream oos = 
+				new ObjectOutputStream(socket.getOutputStream());
 			Message input = null;
 
 			while (true) {
@@ -28,6 +30,12 @@ public class ServerThread extends Thread {
 						try{
 							User usr = (User)(input.MessageData);
 							System.out.println(usr.username + usr.password);
+							try {
+							oos.writeObject(input);
+							oos.flush();
+							} catch (Exception ex){
+								ex.printStackTrace();
+							}
 						} catch (Exception ex) {
 							ex.printStackTrace();
 						}

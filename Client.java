@@ -15,6 +15,7 @@ public class Client {
 	private Socket socket;
 	private PrintWriter out;
 	private ObjectOutputStream oout;
+	private ObjectInputStream ois;
 
 	public Client(){
 		System.out.println("Initializing Client.");
@@ -26,6 +27,7 @@ public class Client {
 			socket = new Socket("127.0.0.1",40000);
 //			out = new PrintWriter(socket.getOutputStream(), true);
 			oout = new ObjectOutputStream(socket.getOutputStream());
+			ois = new ObjectInputStream(socket.getInputStream());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -47,6 +49,10 @@ public class Client {
 		try{
 			oout.writeObject(msg);
 			oout.flush();
+
+			
+			Object input = ois.readObject();
+			System.out.println("got this: " + input);
 		} catch(Exception ex){
 			ex.printStackTrace();
 		}

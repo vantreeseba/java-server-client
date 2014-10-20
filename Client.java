@@ -3,13 +3,15 @@ import java.io.*;
 
 public class Client {
 
+	public static Client Instance;
+
 	public static void main(String[] args){
 		System.out.println("Client Starting");
 
-		Client foo = new Client();
+		Client.Instance = new Client();
 //		foo.SendMessage("WOOOOTY");
-		foo.Login("test","pass");
-		foo.Close();
+		Client.Instance.Login("test","pass");
+		Client.Instance.Close();
 	}
 
 	private Socket socket;
